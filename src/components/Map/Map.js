@@ -37,6 +37,14 @@ export const Maps = (props)=>{
                 lat: 35.216700,
                 lng: -0.647565,
             }
+        },
+        {
+            name: "location-4",
+            status: "l7oman",
+            location: {
+                lat: 35.48171000   ,
+                lng: 6.26074000 ,
+            }
         }
     ];
     return (
