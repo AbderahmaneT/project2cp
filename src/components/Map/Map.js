@@ -6,8 +6,8 @@ export const Maps = (props)=>{
     const [map, setMap] = useState(null);
     const [selectedMarker, setSelectedMarker] = useState(null);
     const containerStyle = {
-        width: '169vh',
-        height: '84vh',
+        width: '100%',
+        height:'84vh',
     };
     const center = {
         lat: 36.166667,
@@ -42,8 +42,8 @@ export const Maps = (props)=>{
             name: "location-4",
             status: "l7oman",
             location: {
-                lat: 35.48171000   ,
-                lng: 6.26074000 ,
+                lat: 41.113730,
+                lng: 8.415038,
             }
         }
     ];

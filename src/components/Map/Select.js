@@ -1,37 +1,37 @@
-
-import { GoogleMap, InfoWindow, DrawingManager,Polygon } from "@react-google-maps/api";
+import { GoogleMap, DrawingManager, Polygon } from "@react-google-maps/api";
 import { useState, useRef, useEffect } from "react";
 
 export const Select = (props) => {
   const { isLoaded } = props;
   const [map, setMap] = useState(null);
   const [geofences, setGeofences] = useState([]);
-  const drawingManagerRef = useRef(null); 
+  const drawingManagerRef = useRef(null);
   const containerStyle = {
-    width: "90vh",
-    height: "90vh",
+    width: "100%",
+    height: "74vh",
   };
   const center = {
     lat: 36.166667,
     lng: 1.333333,
   };
+
   useEffect(() => {
     if (map) {
       const drawingManager = new window.google.maps.drawing.DrawingManager({
-        drawingMode: null, 
-        drawingControl: true, 
+        drawingMode: null,
+        drawingControl: true,
         drawingControlOptions: {
           position: window.google.maps.ControlPosition.TOP_CENTER,
-          drawingModes: [window.google.maps.drawing.OverlayType.POLYGON], 
+          drawingModes: [window.google.maps.drawing.OverlayType.POLYGON],
         },
         polygonOptions: {
-          fillColor: "#FF0000", 
+          fillColor: "#f0f0f0f0",
           fillOpacity: 0.35,
-          clickable: true, 
-          editable: true, 
-          strokeColor: "#000000", 
-          strokeOpacity: 0.8, 
-          strokeWeight: 2, 
+          clickable: true,
+          editable: true,
+          strokeColor: "#000000",
+          strokeOpacity: 0.8,
+          strokeWeight: 2,
         },
       });
       drawingManagerRef.current = drawingManager;
@@ -43,22 +43,18 @@ export const Select = (props) => {
           return { lat: path.lat(), lng: path.lng() };
         });
         setGeofences([...geofences, coordinates]);
+        props.onGeofenceEvent("polygon_drawn", coordinates);
       });
     }
   }, [map]);
-  const handleGeofenceEvent = (eventType, coordinates) => {
-    console.log(
-      `Geofence event: ${eventType}`,
-      coordinates
-    );
-  };
+
   return (
     isLoaded && (
       <>
         <GoogleMap
           mapContainerStyle={containerStyle}
           center={center}
-          zoom={10}
+          zoom={20}
           onLoad={(map) => setMap(map)}
         >
           {geofences.map((coordinates, index) => (
@@ -66,7 +62,7 @@ export const Select = (props) => {
               key={index}
               paths={coordinates}
               options={{
-                fillColor: "#FF0000", 
+                fillColor: "#FF0000",
                 fillOpacity: 0.35,
                 strokeColor: "#000000",
                 strokeOpacity: 0.8,
